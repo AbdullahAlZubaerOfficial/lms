@@ -5,7 +5,7 @@ import { assets, dummyDashboardData } from "../../assets/assets";
 import Loading from "../../components/student/Loading";
 
 const Dashboard = () => {
-  const { currency } = useContext(AppContext);
+  const { currency  } = useContext(AppContext);
   const [dashboardData, setDashboardData] = useState(null);
 
   const fetchDashboardData = async () => {
@@ -74,8 +74,8 @@ const Dashboard = () => {
 
                     </td>
                     <td className="md:px-4 px-2 py-3 flex items-center space-x-3">
-                        <img src={item.student.imageUrl} alt="Profile" className="w-9 h-9 rounded-full" />
-                        <span className="truncate"> {item.student.name} </span>
+                        {/* <img src={item.student.imageUrl} alt="Profile" className="w-9 h-9 rounded-full" /> */}
+                        {/* <span className="truncate"> {item.student.name} </span> */}
                     </td>
                       <td className="px-4 py-3 truncate">
                         {item.courseTitle}
