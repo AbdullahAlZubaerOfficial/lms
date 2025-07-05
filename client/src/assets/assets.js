@@ -93,7 +93,7 @@ export const assets = {
 
 export const dummyEducatorData = {
     "_id": "675ac1512100b91a6d9b8b24",
-    "name": "GreatStack",
+    "name": "abdullah",
     "email": "user.greatstack@gmail.com",
     "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18yclFkaDBOMmFqWnBoTTRBOXZUanZxVlo0aXYifQ",
     "createdAt": "2024-12-12T10:56:17.930Z",
@@ -132,42 +132,35 @@ export const dummyDashboardData = {
             "courseTitle": "Introduction to JavaScript",
             "student": {
                 "_id": "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-                "name": "Great Stack",
-                "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ycVFsdmFMSkw3ckIxNHZMU2o4ZURWNEtmR2IifQ"
+                "name": "Zubaer",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTzTKnUkGieWTL2qsnA87VvA-4_vFqkaSjSLg&s"
             }
         },
         {
             "courseTitle": "Advanced Python Programming",
             "student": {
                 "_id": "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-                "name": "Great Stack",
-                "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ycVFsdmFMSkw3ckIxNHZMU2o4ZURWNEtmR2IifQ"
+                "name": "Abdullah",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS0a-3uyQ9B4bVyJmbPEeawulA4SLxp7f2cXA&s"
             }
         },
         {
             "courseTitle": "Web Development Bootcamp",
             "student": {
                 "_id": "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-                "name": "Great Stack",
-                "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ycVFsdmFMSkw3ckIxNHZMU2o4ZURWNEtmR2IifQ"
+                "name": "unknown",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbdLSaSvmJEyEr3lJ1PPHSMrTowQSeLiCh-g&s"
             }
         },
         {
             "courseTitle": "Data Science with Python",
             "student": {
                 "_id": "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-                "name": "Great Stack",
-                "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ycVFsdmFMSkw3ckIxNHZMU2o4ZURWNEtmR2IifQ"
+                "name": "apple",
+                "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxA2hT7WkkMlnZ2E0Di4qDCphKCNKFq2q5xQ&s"
             }
         },
-        {
-            "courseTitle": "Cybersecurity Basics",
-            "student": {
-                "_id": "user_2qQlvXyr02B4Bq6hT0Gvaa5fT9V",
-                "name": "Great Stack",
-                "imageUrl": "https://img.clerk.com/eyJ0eXBlIjoicHJveHkiLCJzcmMiOiJodHRwczovL2ltYWdlcy5jbGVyay5kZXYvb2F1dGhfZ29vZ2xlL2ltZ18ycVFsdmFMSkw3ckIxNHZMU2o4ZURWNEtmR2IifQ"
-            }
-        }
+     
     ],
     "totalCourses": 8
 }
