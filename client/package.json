@@ -13,6 +13,7 @@
     "@clerk/clerk-react": "^5.22.13",
     "axios": "^1.10.0",
     "daisyui": "^4.12.23",
+    "framer-motion": "^12.23.12",
     "humanize-duration": "^3.32.1",
     "quill": "^2.0.3",
     "rc-progress": "^4.0.0",

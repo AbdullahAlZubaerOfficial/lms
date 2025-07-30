@@ -17,27 +17,24 @@ const Navbar = () => {
   const { user, isLoaded } = useUser();
 
   // Check educator status on user load
-  useEffect(() => {
-    const checkEducatorStatus = async () => {
-      if (isLoaded && user) {
-        try {
-          const token = await getToken();
-          const { data } = await axios.get(
-            `${backendUrl}/api/educator/check-role`,
-            { headers: { Authorization: `Bearer ${token}` } }
-          );
-          
-          if (data.success) {
-            setIsEducator(data.isEducator);
-          }
-        } catch (error) {
-          console.error("Error checking educator status:", error);
-        }
+// In your Navbar component
+// In your Navbar component
+useEffect(() => {
+  const syncUser = async () => {
+    if (isLoaded && user) {
+      try {
+        const token = await getToken();
+        await axios.get(`${backendUrl}/api/user/data`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+      } catch (error) {
+        console.error("User sync error:", error);
       }
-    };
-    
-    checkEducatorStatus();
-  }, [user, isLoaded, backendUrl, getToken]);
+    }
+  };
+  
+  syncUser();
+}, [user, isLoaded, backendUrl, getToken]);
 
   const becomeEducator = async () => {
     if (loading) return;
@@ -59,7 +56,7 @@ const Navbar = () => {
       if (data.success) {
         setIsEducator(true);
         toast.success(data.message);
-        navigate('/educator');
+        navigate('/');
       } else {
         toast.error(data.message || "Failed to become educator");
       }
@@ -78,7 +75,7 @@ const Navbar = () => {
       }`}
     >
       <img 
-        onClick={() => navigate('/educator')} 
+        onClick={() => navigate('/')} 
         src={assets.logo} 
         alt="logo" 
         className="w-32 lg:w-36 cursor-pointer" 

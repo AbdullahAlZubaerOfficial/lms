@@ -6,7 +6,7 @@ const lectureSchema = new mongoose.Schema({
   lectureDuration: { type: Number, required: true },
   lectureUrl: { type: String, required: true },
   isPreviewFree: { type: Boolean, required: true },
-  lectureOrder: { type: Number, required: true }
+  lectureOrder: { type: Number, required: true } // This is what's causing the validation error
 }, { _id: false });
 
 const chapterSchema = new mongoose.Schema({

@@ -1,0 +1,76 @@
+/* Infinite scrolling animation */
+.company-slider {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.company-slider-reverse {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.company-track {
+  display: flex;
+  width: calc(250px * 14);
+  animation: scroll 40s linear infinite;
+}
+
+.company-slider-reverse .company-track {
+  animation: scrollReverse 40s linear infinite;
+}
+
+.company-slide {
+  flex-shrink: 0;
+  width: 250px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-250px * 7));
+  }
+}
+
+@keyframes scrollReverse {
+  0% {
+    transform: translateX(calc(-250px * 7));
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .company-track {
+    width: calc(200px * 14);
+    animation: scroll 30s linear infinite;
+  }
+  
+  .company-slider-reverse .company-track {
+    animation: scrollReverse 30s linear infinite;
+  }
+  
+  .company-slide {
+    width: 200px;
+  }
+  
+  @keyframes scroll {
+    100% {
+      transform: translateX(calc(-200px * 7));
+    }
+  }
+  
+  @keyframes scrollReverse {
+    0% {
+      transform: translateX(calc(-200px * 7));
+    }
+  }
+}

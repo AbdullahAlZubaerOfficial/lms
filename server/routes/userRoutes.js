@@ -1,15 +1,24 @@
 import express from "express";
-import { addUserRating, getUserCourseProgress, getUserData, purchaseCourse, updateCourseProgress, userEnrolledCourses } from "../controllers/userController.js";
+import { 
+  addUserRating, 
+  getUserCourseProgress, 
+  getUserData, 
+  purchaseCourse, 
+  updateCourseProgress, 
+  userEnrolledCourses 
+} from "../controllers/userController.js";
+import { protect } from "../middlewares/authMiddleware.js";
 
-const userRouter = express.Router()
+const userRouter = express.Router();
 
-userRouter.get('/data',getUserData)
-userRouter.get('/enrolled-courses',userEnrolledCourses)
-userRouter.post('/purchase',purchaseCourse)
+// Apply protect middleware to all routes
+userRouter.use(protect);
 
-userRouter.post('/update-course-progress',updateCourseProgress)
-userRouter.post('/get-course-progress',getUserCourseProgress)
-userRouter.post('/add-rating',addUserRating)
-
+userRouter.get('/data', getUserData);
+userRouter.get('/enrolled-courses', userEnrolledCourses);
+userRouter.post('/purchase', purchaseCourse);
+userRouter.post('/update-course-progress', updateCourseProgress);
+userRouter.post('/get-course-progress', getUserCourseProgress);
+userRouter.post('/add-rating', addUserRating);
 
 export default userRouter;

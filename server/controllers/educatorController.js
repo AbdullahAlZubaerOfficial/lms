@@ -3,6 +3,7 @@ import Course from "../models/Course.js";
 import { v2 as cloudinary } from "cloudinary";
 import { Purchase } from "../models/Purchase.js";
 import User from "../models/User.js";
+import fs from 'fs';
 
 // Update role to educator
 export const updateRoleToEducator = async (req, res) => {
@@ -21,7 +22,7 @@ export const updateRoleToEducator = async (req, res) => {
 
     await clerkClient.users.updateUser(userId, {
       publicMetadata: {
-        role: "educator", // Fixed typo from 'educator' to 'educator'
+        role: "educator",
       },
     });
 
@@ -63,43 +64,116 @@ export const checkEducatorRole = async (req, res) => {
 // Add New Course
 export const addCourse = async (req, res) => {
   try {
-    const { courseData } = req.body;
-    const imageFile = req.file;
-    const educatorId = req.auth.userId;
-
-    if (!imageFile) {
+    // Validate image exists
+    if (!req.file) {
       return res.status(400).json({ 
         success: false, 
         message: "Course thumbnail is required" 
       });
     }
 
-    const parsedCourseData = JSON.parse(courseData);
-    parsedCourseData.educator = educatorId;
+    // Parse and validate course data
+    let parsedCourseData;
+    try {
+      parsedCourseData = JSON.parse(req.body.courseData);
+    } catch (parseError) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid course data format"
+      });
+    }
 
-    // Upload thumbnail to Cloudinary
-    const imageUpload = await cloudinary.uploader.upload(imageFile.path, {
+    // Validate required fields
+    const requiredFields = ['courseTitle', 'courseDescription', 'coursePrice', 'discount', 'courseContent'];
+    for (const field of requiredFields) {
+      if (!parsedCourseData[field]) {
+        return res.status(400).json({
+          success: false,
+          message: `${field} is required`
+        });
+      }
+    }
+
+    // Validate course content structure
+    if (!Array.isArray(parsedCourseData.courseContent) || parsedCourseData.courseContent.length === 0) {
+      return res.status(400).json({
+        success: false,
+        message: "Course must have at least one chapter"
+      });
+    }
+
+    // Validate each chapter has content and required fields
+    for (const [chapterIndex, chapter] of parsedCourseData.courseContent.entries()) {
+      if (!chapter.chapterContent || chapter.chapterContent.length === 0) {
+        return res.status(400).json({
+          success: false,
+          message: `Chapter "${chapter.chapterTitle || chapterIndex + 1}" must have at least one lecture`
+        });
+      }
+
+      // Validate each lecture has required fields
+      for (const [lectureIndex, lecture] of chapter.chapterContent.entries()) {
+        const requiredLectureFields = ['lectureTitle', 'lectureDuration', 'lectureUrl', 'lectureOrder'];
+        for (const field of requiredLectureFields) {
+          if (lecture[field] === undefined || lecture[field] === null) {
+            return res.status(400).json({
+              success: false,
+              message: `Lecture ${lectureIndex + 1} in chapter "${chapter.chapterTitle || chapterIndex + 1}" is missing required field: ${field}`
+            });
+          }
+        }
+      }
+    }
+
+    // Upload image to Cloudinary
+    const imageUpload = await cloudinary.uploader.upload(req.file.path, {
       folder: 'course-thumbnails',
       quality: 'auto:good'
     });
 
-    parsedCourseData.courseThumbnail = {
-      url: imageUpload.secure_url,
-      publicId: imageUpload.public_id
-    };
+    // Create course
+    const newCourse = await Course.create({
+      ...parsedCourseData,
+      educator: req.auth.userId,
+      courseThumbnail: {
+        url: imageUpload.secure_url,
+        publicId: imageUpload.public_id
+      }
+    });
 
-    const newCourse = await Course.create(parsedCourseData);
+    // Clean up uploaded file
+    if (fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
 
     res.status(201).json({ 
       success: true, 
       message: "Course created successfully",
       courseId: newCourse._id 
     });
+
   } catch (error) {
     console.error("Error adding course:", error);
+    
+    // Clean up uploaded file if error occurred
+    if (req.file?.path && fs.existsSync(req.file.path)) {
+      fs.unlinkSync(req.file.path);
+    }
+
+    // Handle Mongoose validation errors
+    if (error.name === 'ValidationError') {
+      const errors = Object.values(error.errors).map(err => err.message);
+      return res.status(400).json({
+        success: false,
+        message: 'Validation failed',
+        errors
+      });
+    }
+
     res.status(500).json({ 
       success: false, 
-      message: error.message 
+      message: "Internal server error",
+      error: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
