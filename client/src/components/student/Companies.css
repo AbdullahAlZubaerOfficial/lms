@@ -3,6 +3,7 @@
   position: relative;
   width: 100%;
   overflow: hidden;
+  margin-bottom: 1.5rem;
 }
 
 .company-slider-reverse {
@@ -13,34 +14,37 @@
 
 .company-track {
   display: flex;
-  width: calc(250px * 14);
-  animation: scroll 40s linear infinite;
+  width: max-content;
+  will-change: transform;
+  animation: scroll 30s linear infinite;
 }
 
 .company-slider-reverse .company-track {
-  animation: scrollReverse 40s linear infinite;
+  animation: scrollReverse 30s linear infinite;
+  animation-delay: 0.5s;
 }
 
 .company-slide {
   flex-shrink: 0;
-  width: 250px;
+  padding: 0 1rem;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+/* Animation keyframes */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
   100% {
-    transform: translateX(calc(-250px * 7));
+    transform: translateX(-50%);
   }
 }
 
 @keyframes scrollReverse {
   0% {
-    transform: translateX(calc(-250px * 7));
+    transform: translateX(-50%);
   }
   100% {
     transform: translateX(0);
@@ -48,29 +52,84 @@
 }
 
 /* Responsive adjustments */
-@media (max-width: 768px) {
+/* Extra small devices (phones, 600px and down) */
+@media (max-width: 600px) {
+  .company-slide {
+    width: 120px;
+    padding: 0 0.75rem;
+  }
+  
   .company-track {
-    width: calc(200px * 14);
+    animation-duration: 20s;
+  }
+  
+  .company-slider-reverse .company-track {
+    animation-duration: 20s;
+  }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media (min-width: 600px) and (max-width: 768px) {
+  .company-slide {
+    width: 140px;
+  }
+  
+  .company-track {
+    animation-duration: 25s;
+  }
+  
+  .company-slider-reverse .company-track {
+    animation-duration: 25s;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media (min-width: 768px) and (max-width: 992px) {
+  .company-slide {
+    width: 160px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media (min-width: 992px) and (max-width: 1200px) {
+  .company-slide {
+    width: 180px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media (min-width: 1200px) {
+  .company-slide {
+    width: 200px;
+  }
+}
+
+/* Smooth animation on devices that support it */
+@media (prefers-reduced-motion: no-preference) {
+  .company-track {
     animation: scroll 30s linear infinite;
   }
   
   .company-slider-reverse .company-track {
     animation: scrollReverse 30s linear infinite;
+    animation-delay: 0.5s;
+  }
+}
+
+/* Reduced motion accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .company-track,
+  .company-slider-reverse .company-track {
+    animation: none;
+    justify-content: space-around;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 1rem;
   }
   
   .company-slide {
-    width: 200px;
-  }
-  
-  @keyframes scroll {
-    100% {
-      transform: translateX(calc(-200px * 7));
-    }
-  }
-  
-  @keyframes scrollReverse {
-    0% {
-      transform: translateX(calc(-200px * 7));
-    }
+    width: auto;
+    flex: 1 0 calc(20% - 1rem);
+    max-width: calc(20% - 1rem);
   }
 }
