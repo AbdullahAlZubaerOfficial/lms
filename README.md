@@ -3,7 +3,7 @@
 **LMS** is a full-stack Learning Management System designed to provide an efficient, scalable, and engaging online learning experience.  
 It allows administrators to manage courses and users, instructors to upload content, and students to access learning materials, track progress, and interact with instructors.
 
-🌐 **Live Site:** [Add your live link here]
+🌐 **Live Site:** [https://lms-iwqx.vercel.app/]
 
 ---
 
